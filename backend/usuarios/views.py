@@ -1,4 +1,7 @@
 from django.shortcuts import render
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
 
 from rest_framework import viewsets
 from .models import Cuenta, Disenador, TipoPrenda, Prenda, Diseno
@@ -23,3 +26,20 @@ class PrendaViewSet(viewsets.ModelViewSet):
 class DisenoViewSet(viewsets.ModelViewSet):
     queryset = Diseno.objects.all()
     serializer_class = DisenoSerializer
+
+class SignUpView(APIView):
+    def post(self, request, *args, **kwargs):
+        serializer = UserSerializer(data=request.data)
+        
+        if serializer.is_valid():
+            # Encriptar la contraseña antes de guardar el usuario
+            serializer.validated_data['password'] = make_password(serializer.validated_data['password'])
+            user = User.objects.create(**serializer.validated_data)
+            return Response({"message": "Usuario creado con éxito"}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    
+class LoginView(APIView):
+    def post(self, request, *args, **kwargs):
+        # Aquí deberías agregar la lógica para el inicio de sesión
+        return Response({"message": "Login successful"}, status=status.HTTP_200_OK)    

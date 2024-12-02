@@ -17,7 +17,7 @@ Including another URLconf
 from django.urls import path, include
 from django.contrib import admin
 from rest_framework.routers import DefaultRouter
-from .views import CuentaViewSet, DisenadorViewSet, TipoPrendaViewSet, PrendaViewSet, DisenoViewSet
+from usuarios.views import CuentaViewSet, DisenadorViewSet, TipoPrendaViewSet, PrendaViewSet, DisenoViewSet, SignUpView, LoginView
 
 router = DefaultRouter()
 router.register(r'cuentas', CuentaViewSet)
@@ -29,6 +29,8 @@ router.register(r'disenos', DisenoViewSet)
 urlpatterns = [
     path('api/', include(router.urls)),
     path('admin/', admin.site.urls),
-    path('', include('usuarios.urls')),
+    path('usuarios/', include('usuarios.urls')),
+    path('signup/', SignUpView.as_view(), name='signup'),  # Ruta para registrarse
+    path('login/', LoginView.as_view(), name='login'),  # Ruta para iniciar sesión
 ]
 
