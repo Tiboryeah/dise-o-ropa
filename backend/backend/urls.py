@@ -30,7 +30,5 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('admin/', admin.site.urls),
     path('usuarios/', include('usuarios.urls')),
-    path('signup/', SignUpView.as_view(), name='signup'),  # Ruta para registrarse
-    path('login/', LoginView.as_view(), name='login'),  # Ruta para iniciar sesión
 ]
 

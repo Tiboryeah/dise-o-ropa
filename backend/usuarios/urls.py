@@ -1,5 +1,5 @@
 from django.urls import path
-from . import views  # Esto debería apuntar a las vistas de la carpeta de la app, no a 'migrations'
+from . import views 
 
 urlpatterns = [
     path('login/', views.LoginView.as_view(), name='login'),

@@ -29,17 +29,17 @@ class DisenoViewSet(viewsets.ModelViewSet):
 
 class SignUpView(APIView):
     def post(self, request, *args, **kwargs):
-        serializer = UserSerializer(data=request.data)
+        serializer = CuentaSerializer(data=request.data)
         
         if serializer.is_valid():
             # Encriptar la contraseña antes de guardar el usuario
             serializer.validated_data['password'] = make_password(serializer.validated_data['password'])
-            user = User.objects.create(**serializer.validated_data)
+            user = Cuenta.objects.create(**serializer.validated_data)
             return Response({"message": "Usuario creado con éxito"}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     
 class LoginView(APIView):
     def post(self, request, *args, **kwargs):
-        # Aquí deberías agregar la lógica para el inicio de sesión
+        #logica de login
         return Response({"message": "Login successful"}, status=status.HTTP_200_OK)    
